@@ -17,7 +17,6 @@ public class RiemannSumBonus {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        // removed power expression ^ for ease of typing
         System.out.print("Enter the polynomial in form ax3+bx2+cx+d: ");
         String poly = scanner.nextLine();
 
@@ -32,18 +31,32 @@ public class RiemannSumBonus {
 
         poly = poly.replace("x^3", "x3").replace("x^2", "x2").replace("x^1", "x").replace("x^0", "");
 
-        String[] terms = poly.split("\\+");
+        String[] degrees = poly.split("(?=[-+])");
         double a = 0, b = 0, c = 0, d = 0;
 
-        for (String term : terms) {
-            if (term.contains("x3")) {
-                a = Double.parseDouble(term.replace("x3", ""));
-            } else if (term.contains("x2")) {
-                b = Double.parseDouble(term.replace("x2", ""));
-            } else if (term.contains("x")) {
-                c = Double.parseDouble(term.replace("x", ""));
+        for (String degree : degrees) {
+            if (degree.contains("x3")) {
+                if (degree.equals("x3")) {
+                    a = 1;
+                } else {
+                    a = Double.parseDouble(degree.replace("x3", ""));
+                }
+            } else if (degree.contains("x2")) {
+                if (degree.equals("x2")) {
+                    b = 1;
+                } else {
+                    b = Double.parseDouble(degree.replace("x2", ""));
+                }
+            } else if (degree.contains("x")) {
+                if (degree.equals("x")) {
+                    c = 1;
+                } else {
+                    c = Double.parseDouble(degree.replace("x", ""));
+                }
             } else {
-                d = Double.parseDouble(term);
+                if (!degree.isEmpty()) {
+                    d = Double.parseDouble(degree);
+                }
             }
         }
 
